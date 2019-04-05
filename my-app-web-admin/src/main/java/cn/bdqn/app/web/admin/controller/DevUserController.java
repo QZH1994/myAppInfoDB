@@ -3,8 +3,8 @@ package cn.bdqn.app.web.admin.controller;
 import cn.bdqn.app.web.admin.service.DevUserService;
 import cn.bdqn.my.app.domain.entity.DevUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 
@@ -58,24 +58,24 @@ public class DevUserController extends Base {
     /**
      * 用户登陆验证
      *
-     * @param devCode     开发者账号
-     * @param devPassword 开发者密码
-     * @param model       视图
+     * @param devCode            开发者账号
+     * @param devPassword        开发者密码
+     * @param redirectAttributes 重定向时带参数过去
      * @return 页面跳转
      */
     @PostMapping("dologinaaa")
-    public String dologinaaa(@RequestParam(value = "devCode",required = true) String devCode,
-                             @RequestParam(value = "devPassword") String devPassword, Model model) {
+    public String dologinaaa(@RequestParam(value = "devCode", required = true) String devCode,
+                             @RequestParam(value = "devPassword") String devPassword, RedirectAttributes redirectAttributes) {
         DevUser devUser = new DevUser();
         devUser.setDevCode(devCode);
         devUser.setDevPassword(devPassword);
         DevUser user = devUserService.selectAll(devUser);
         if (user != null) {
             session.setAttribute("devuserSession", user);
-            return "developer/main";
+            return "/developer/main";
         }
-        model.addAttribute("error", "用户名或密码错误，请确认！");
-        return devLogin();
+        redirectAttributes.addFlashAttribute("error", "用户名或密码错误，请确认！");
+        return "redirect:devlogin";
     }
 
     /**
