@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bdqn.app.web.admin.dao.DataDictionaryDao">
+
+    <sql id="Base_List">
+        id, typeCode, typeName, valueId, valueName, createdBy, creationDate, modifyBy, modifyDate    </sql>
+
+    <resultMap type="cn.bdqn.my.app.domain.entity.DataDictionary" id="DataDictionaryMap">
+        <result property="id" column="id"/>
+        <result property="typeCode" column="typeCode"/>
+        <result property="typeName" column="typeName"/>
+        <result property="valueId" column="valueId"/>
+        <result property="valueName" column="valueName"/>
+        <result property="createdBy" column="createdBy"/>
+        <result property="creationDate" column="creationDate"/>
+        <result property="modifyBy" column="modifyBy"/>
+        <result property="modifyDate" column="modifyDate"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="selectById" resultMap="DataDictionaryMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.data_dictionary
+        where id = #{id}
+    </select>
+
+    <!-- 查询app状态 所属平台 -->
+    <select id="seleceApp" resultMap="DataDictionaryMap">
+        SELECT valueName,valueId FROM data_dictionary
+        <where>
+            <if test="typeCode != null and typeCode != ''">
+                and typeCode = #{typeCode}
+            </if>
+        </where>
+    </select>
+
+    
+    <!--查询查询总条数-->
+    <select id="selectPageContext" resultMap="DataDictionaryMap">
+        select
+          count(1)
+        from appinfodb.data_dictionary
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="selectAllByLimit" resultMap="DataDictionaryMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.data_dictionary
+        limit #{offset}, #{limit}
+    </select>
+    
+    <!-- 模糊查询 -->
+    <select id="selectAllFuzzy" resultMap="DataDictionaryMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.data_dictionary
+        <where>
+            <if test="id != null">
+                and id like concat("%", #{id}, "%")
+            </if>
+            <if test="typeCode != null and typeCode != ''">
+                and typeCode like concat("%", #{typeCode}, "%")
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and typeName like concat("%", #{typeName}, "%")
+            </if>
+            <if test="valueId != null">
+                and valueId like concat("%", #{valueId}, "%")
+            </if>
+            <if test="valueName != null and valueName != ''">
+                and valueName like concat("%", #{valueName}, "%")
+            </if>
+            <if test="createdBy != null">
+                and createdBy like concat("%", #{createdBy}, "%")
+            </if>
+            <if test="creationDate != null">
+                and creationDate like concat("%", #{creationDate}, "%")
+            </if>
+            <if test="modifyBy != null">
+                and modifyBy like concat("%", #{modifyBy}, "%")
+            </if>
+            <if test="modifyDate != null">
+                and modifyDate like concat("%", #{modifyDate}, "%")
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectAll" resultMap="DataDictionaryMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.data_dictionary
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="typeCode != null and typeCode != ''">
+                and typeCode = #{typeCode}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and typeName = #{typeName}
+            </if>
+            <if test="valueId != null">
+                and valueId = #{valueId}
+            </if>
+            <if test="valueName != null and valueName != ''">
+                and valueName = #{valueName}
+            </if>
+            <if test="createdBy != null">
+                and createdBy = #{createdBy}
+            </if>
+            <if test="creationDate != null">
+                and creationDate = #{creationDate}
+            </if>
+            <if test="modifyBy != null">
+                and modifyBy = #{modifyBy}
+            </if>
+            <if test="modifyDate != null">
+                and modifyDate = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into appinfodb.data_dictionary(typeCode, typeName, valueId, valueName, createdBy, creationDate, modifyBy, modifyDate)
+        values (#{typeCode}, #{typeName}, #{valueId}, #{valueName}, #{createdBy}, #{creationDate}, #{modifyBy}, #{modifyDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update appinfodb.data_dictionary
+        <set>
+            <if test="typeCode != null and typeCode != ''">
+                typeCode = #{typeCode},
+            </if>
+            <if test="typeName != null and typeName != ''">
+                typeName = #{typeName},
+            </if>
+            <if test="valueId != null">
+                valueId = #{valueId},
+            </if>
+            <if test="valueName != null and valueName != ''">
+                valueName = #{valueName},
+            </if>
+            <if test="createdBy != null">
+                createdBy = #{createdBy},
+            </if>
+            <if test="creationDate != null">
+                creationDate = #{creationDate},
+            </if>
+            <if test="modifyBy != null">
+                modifyBy = #{modifyBy},
+            </if>
+            <if test="modifyDate != null">
+                modifyDate = #{modifyDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from appinfodb.data_dictionary where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bdqn.app.web.admin.dao.AdPromotionDao">
+
+    <sql id="Base_List">
+        id, appId, adPicPath, adPV, carouselPosition, startTime, endTime, createdBy, creationDate, modifyBy, modifyDate    </sql>
+
+    <resultMap type="cn.bdqn.my.app.domain.entity.AdPromotion" id="AdPromotionMap">
+        <result property="id" column="id"/>
+        <result property="appId" column="appId"/>
+        <result property="adPicPath" column="adPicPath"/>
+        <result property="adPV" column="adPV"/>
+        <result property="carouselPosition" column="carouselPosition"/>
+        <result property="startTime" column="startTime"/>
+        <result property="endTime" column="endTime"/>
+        <result property="createdBy" column="createdBy"/>
+        <result property="creationDate" column="creationDate"/>
+        <result property="modifyBy" column="modifyBy"/>
+        <result property="modifyDate" column="modifyDate"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="selectById" resultMap="AdPromotionMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.ad_promotion
+        where id = #{id}
+    </select>
+    
+    <!--查询查询总条数-->
+    <select id="selectPageContext" resultMap="AdPromotionMap">
+        select
+          count(1)
+        from appinfodb.ad_promotion
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="selectAllByLimit" resultMap="AdPromotionMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.ad_promotion
+        limit #{offset}, #{limit}
+    </select>
+    
+    <!-- 模糊查询 -->
+    <select id="selectAllFuzzy" resultMap="AdPromotionMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.ad_promotion
+        <where>
+            <if test="id != null">
+                and id like concat("%", #{id}, "%")
+            </if>
+            <if test="appId != null">
+                and appId like concat("%", #{appId}, "%")
+            </if>
+            <if test="adPicPath != null and adPicPath != ''">
+                and adPicPath like concat("%", #{adPicPath}, "%")
+            </if>
+            <if test="adPV != null">
+                and adPV like concat("%", #{adPV}, "%")
+            </if>
+            <if test="carouselPosition != null">
+                and carouselPosition like concat("%", #{carouselPosition}, "%")
+            </if>
+            <if test="startTime != null">
+                and startTime like concat("%", #{startTime}, "%")
+            </if>
+            <if test="endTime != null">
+                and endTime like concat("%", #{endTime}, "%")
+            </if>
+            <if test="createdBy != null">
+                and createdBy like concat("%", #{createdBy}, "%")
+            </if>
+            <if test="creationDate != null">
+                and creationDate like concat("%", #{creationDate}, "%")
+            </if>
+            <if test="modifyBy != null">
+                and modifyBy like concat("%", #{modifyBy}, "%")
+            </if>
+            <if test="modifyDate != null">
+                and modifyDate like concat("%", #{modifyDate}, "%")
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectAll" resultMap="AdPromotionMap">
+        select
+          <include refid="Base_List" />
+
+        from appinfodb.ad_promotion
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="appId != null">
+                and appId = #{appId}
+            </if>
+            <if test="adPicPath != null and adPicPath != ''">
+                and adPicPath = #{adPicPath}
+            </if>
+            <if test="adPV != null">
+                and adPV = #{adPV}
+            </if>
+            <if test="carouselPosition != null">
+                and carouselPosition = #{carouselPosition}
+            </if>
+            <if test="startTime != null">
+                and startTime = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and endTime = #{endTime}
+            </if>
+            <if test="createdBy != null">
+                and createdBy = #{createdBy}
+            </if>
+            <if test="creationDate != null">
+                and creationDate = #{creationDate}
+            </if>
+            <if test="modifyBy != null">
+                and modifyBy = #{modifyBy}
+            </if>
+            <if test="modifyDate != null">
+                and modifyDate = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into appinfodb.ad_promotion(appId, adPicPath, adPV, carouselPosition, startTime, endTime, createdBy, creationDate, modifyBy, modifyDate)
+        values (#{appId}, #{adPicPath}, #{adPV}, #{carouselPosition}, #{startTime}, #{endTime}, #{createdBy}, #{creationDate}, #{modifyBy}, #{modifyDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update appinfodb.ad_promotion
+        <set>
+            <if test="appId != null">
+                appId = #{appId},
+            </if>
+            <if test="adPicPath != null and adPicPath != ''">
+                adPicPath = #{adPicPath},
+            </if>
+            <if test="adPV != null">
+                adPV = #{adPV},
+            </if>
+            <if test="carouselPosition != null">
+                carouselPosition = #{carouselPosition},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+            <if test="createdBy != null">
+                createdBy = #{createdBy},
+            </if>
+            <if test="creationDate != null">
+                creationDate = #{creationDate},
+            </if>
+            <if test="modifyBy != null">
+                modifyBy = #{modifyBy},
+            </if>
+            <if test="modifyDate != null">
+                modifyDate = #{modifyDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from appinfodb.ad_promotion where id = #{id}
+    </delete>
+
+</mapper>
