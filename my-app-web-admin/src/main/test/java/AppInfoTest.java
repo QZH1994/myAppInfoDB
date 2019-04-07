@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +16,8 @@ import org.springframework.util.DigestUtils;
 public class AppInfoTest {
     @Test
     public void test() {
-        System.out.println(DigestUtils.md5DigestAsHex("12345".getBytes()));
+        System.out.println(DigestUtils.md5DigestAsHex("1234".getBytes()));
+        System.out.println(StringUtils.isBlank("123456"));
+
     }
 }

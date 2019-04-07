@@ -60,6 +60,7 @@
             <mvc:exclude-mapping path="/index"/>
             <mvc:exclude-mapping path="/"/>
             <mvc:exclude-mapping path="/devlogin"/>
+            <mvc:exclude-mapping path="/dologinaaa"/>
             <mvc:exclude-mapping path="/statics/**"/>
             <bean class="cn.bdqn.app.web.admin.interceptor.LoginInterceptor"/>
         </mvc:interceptor>

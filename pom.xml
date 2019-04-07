@@ -214,7 +214,7 @@
             </dependency>
             <!-- Log End -->
 
-            <!-- Commons Begin -->
+            <!-- Commons Begin 使用StringUtils.isBlank()方法来判断字符串是否为空 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>

@@ -3,6 +3,7 @@ package cn.bdqn.app.web.admin.controller;
 import cn.bdqn.app.web.admin.service.DevUserService;
 import cn.bdqn.my.app.domain.entity.DevUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,13 +69,23 @@ public class DevUserController extends Base {
                              @RequestParam(value = "devPassword") String devPassword, RedirectAttributes redirectAttributes) {
         DevUser devUser = new DevUser();
         devUser.setDevCode(devCode);
-        devUser.setDevPassword(devPassword);
         DevUser user = devUserService.selectAll(devUser);
+        // 判断用户输入的账户存不存在
         if (user != null) {
-            session.setAttribute("devuserSession", user);
-            return "/developer/main";
+
+            // 判断用户输入的密码对不对
+            String digest = DigestUtils.md5DigestAsHex(devPassword.getBytes());
+            // 密码正确
+            if (digest.equals(user.getDevPassword())) {
+                session.setAttribute("devuserSession", user);
+                return "/developer/main";
+            }
+            // 密码错误
+            redirectAttributes.addFlashAttribute("error", "密码输入错误，请确认！");
+            return "redirect:devlogin";
         }
-        redirectAttributes.addFlashAttribute("error", "用户名或密码错误，请确认！");
+        // 用户名不存在
+        redirectAttributes.addFlashAttribute("error", "用户名输入错误或不存在，请确认！");
         return "redirect:devlogin";
     }
 
