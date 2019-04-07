@@ -17,32 +17,7 @@
     </context:component-scan>
 
     <!-- mvc的注解驱动 相当于同时使用最新的处理器映射和处理器适配器 对JSON数据响应提供支持 -->
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <!-- 配置数据传输二进制流  用于下载文件 -->
-            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
-            <!-- JSON格式中文乱码，设置字符编码为：UTF-8 -->
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <!-- supportedMediaTypes属性指定媒体类型为：application/json；字符编码为：UTF-8 -->
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>application/json;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-
-            <!-- 配置FastJson的消息转换器FastJsonHttpMessageConverter -->
-            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <!-- 设置text/html的格式为：UTF-8 -->
-                        <value>test/html;charset=UTF-8</value>
-                        <value>application/json</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+    <mvc:annotation-driven/>
 
     <!-- 视图解析器 找到跳转的目标页面 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

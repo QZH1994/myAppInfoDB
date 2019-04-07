@@ -136,7 +136,7 @@ public class AppInfoController {
      * @param logoLocPath app头像路径
      * @return 是否删除成功
      */
-    @RequestMapping("/appinfo/deleteApp")
+    @RequestMapping(value = "/appinfo/deleteApp")
     @ResponseBody
     public String deleteApp(Integer appInfoId, String logoLocPath) {
 
