@@ -13,6 +13,7 @@
         <module>my-app-web-admin</module>
         <module>my-app-web-ui</module>
         <module>my-app-web-api</module>
+        <module>my-app-external</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -233,6 +234,8 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
             <!-- Commons End -->
+
+
         </dependencies>
     </dependencyManagement>
 

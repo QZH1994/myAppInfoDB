@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -22,41 +22,65 @@
 
     <!-- Custom Theme Style -->
     <link href="${pageContext.request.contextPath }/statics/css/custom.min.css" rel="stylesheet">
-  </head>
+</head>
 
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
 
-      <div class="login_wrapper">
+    <div class="login_wrapper">
         <div class="animate form login_form">
-          <section class="login_content">
-            <form action="${pageContext.request.contextPath }/dologinaaa" method="post">
-              <h1>APP开发者平台</h1>
-              <div>
-                <input type="text" class="form-control" name="devCode" placeholder="请输入用户名" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" name="devPassword" placeholder="请输入密码" required="" />
-              </div>
-              <span style="color: red">${error }</span>
-              <div>
-              	<button type="submit" class="btn btn-success">登     录</button>
-              	<button type="reset" class="btn btn-default">重　填</button>
-              </div>
+            <section class="login_content">
+                <form action="${pageContext.request.contextPath }/dologinaaa" method="post">
+                    <h1>APP开发者平台</h1>
+                    <div>
+                        <input type="text" class="form-control" name="devCode" placeholder="请输入用户名" required=""/>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="devPassword" placeholder="请输入密码" required=""/>
 
-              <div class="clearfix"></div>
 
-              <div class="separator">
-                <div>
-                  <p>©2016 All Rights Reserved. </p>
-                </div>
-              </div>
-            </form>
-          </section>
+                    </div>
+                    <div>
+                        <input id="verification" name="verification" type="text" class="form-control"
+                               style="width: 120px">
+                        <img id="validateCode" src="${pageContext.request.contextPath }/verification" title="看不清？换一张" style="position: relative;left: 60px;top: -54px;"/>
+                    </div>
+                    <span style="color: red">${error }</span>
+                    <div>
+                        <button type="submit" class="btn btn-success">登 录</button>
+                        <button type="reset" class="btn btn-default">重　填</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <div>
+                            <p>©2016 All Rights Reserved. </p>
+                        </div>
+                    </div>
+                </form>
+            </section>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
+<script src="${pageContext.request.contextPath }/statics/js/jquery-1.11.3.min.js"></script>
+<script>
+    // 刷新验证码
+    $("#validateCode").click(function () {
+        $(this).attr('src', '${pageContext.request.contextPath }/verification?' + Math.random()).fadeIn();
+    })
+
+
+    // $(function () {
+        // 刷新验证码
+        <%--$("#validateCode").bind("click",function () {--%>
+            <%--$(this).hide().attr('src', '${pageContext.request.contextPath }/verification?' + Math.random()).fadeIn();--%>
+        <%--})--%>
+
+    // })
+
+</script>
 </html>

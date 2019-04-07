@@ -120,7 +120,6 @@
             <artifactId>junit</artifactId>
         </dependency>
 
-
     </dependencies>
 
 </project>

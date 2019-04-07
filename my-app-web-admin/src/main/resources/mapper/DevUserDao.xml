@@ -99,9 +99,6 @@
             <if test="devName != null and devName != ''">
                 and devName = #{devName}
             </if>
-            <if test="devPassword != null and devPassword != ''">
-                and devPassword = #{devPassword}
-            </if>
             <if test="devEmail != null and devEmail != ''">
                 and devEmail = #{devEmail}
             </if>

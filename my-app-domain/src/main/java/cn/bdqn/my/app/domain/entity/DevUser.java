@@ -34,5 +34,7 @@ public class DevUser implements Serializable {
     private Long modifyBy;
     //最新更新时间
     private Date modifyDate;
+    // 验证码
+    private String verification;
 
 }
